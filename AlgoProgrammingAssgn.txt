@@ -14,9 +14,7 @@ public class test {
             
             else if( i==array.size()-1)
                 values[i]=array.get(i)*array.get(i-1);
-            else{
-            	
-            }
+            
             
             
             
