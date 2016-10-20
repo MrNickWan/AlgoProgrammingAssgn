@@ -109,24 +109,17 @@
 	        }
 	        return sum=pickBoxes(array,sum,maxANDindex[1]);
 	    }
-	        
-	        
-	        
-	        
-	        
-	        
-	     public static void main(String []args){
+
+	public static void main(String []args){
 	        ArrayList<Integer> A = new ArrayList<Integer>();
-	      
-	          
-	         	        A.add(2);
-	         	        A.add(3);
+	        long start = System.currentTimeMillis();
+            for(int i =0;i<1000;i++)
+            	A.add(i);
 	             
-	        
-	        for (Integer p : A)
-	            System.out.print(p+" ");
-	        
 	        System.out.println("maxsum " +pickBoxes(A,0,-1));
+	        long duration = System.currentTimeMillis()-start;
+	        System.out.println("program duration " + duration);
+	        
 	     }   
 	}
 
