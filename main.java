@@ -3,39 +3,59 @@
 	import java.util.*;
 	public class main {
 		private static ArrayList<Integer> values = new ArrayList<Integer>();
+		
+		
 		//first used to calculate sums
 		private static void calculatesums(ArrayList<Integer> array){
-			
-			for(int i=0;i<array.size();i++){
-				if(i==0){
-					values.add(array.get(0)*array.get(i+1));
+			if(array.size()==1)
+				values.add(array.get(0));
+			else{
+				for(int i=0;i<array.size();i++){
+					if(i==0){
+						values.add(array.get(0)*array.get(i+1));
+					}
+					else if( i==array.size()-1)
+						values.add(array.get(i)*array.get(i-1));
+					else{
+						values.add(array.get(i-1)*array.get(i)*array.get(i+1));
+					}
 				}
-	            else if( i==array.size()-1)
-	                values.add(array.get(i)*array.get(i-1));
-	            else{
-	            values.add(array.get(i-1)*array.get(i)*array.get(i+1));
-
-	            }
-			
 			}
-			
 		}
 		//recalculate sums after element is removed
 		private static void REcalculatesums(ArrayList <Integer>array, int indexoflastremoved){
-			for(Integer p: values)
-				System.out.println(p + " ");
-			System.out.println(values.get(0));
-			System.out.println(array.get(0));
+			
+			int i =indexoflastremoved;
 			values.remove(indexoflastremoved);
 			
-			if(indexoflastremoved==0 || indexoflastremoved == 1 && array.size()==1){
-				values.set(0, array.get(0));
+			int prei,posti,preprei;
+			try{
+				prei=array.get(i-1);
+			}
+			catch(IndexOutOfBoundsException e){
+				prei=1;
+			}
+			try{
+				System.out.println(i);
+				posti=array.get(i+1);
+			}
+			catch(IndexOutOfBoundsException e){
+				posti=1;
+			}
+			try{
+				preprei=array.get(i-2);
+			}
+			catch(ArrayIndexOutOfBoundsException e){
+				preprei=1;
+			}
+			values.set(i, array.get(i)*posti*prei);
+			try{
+			
+				values.set(i-1, prei*preprei*array.get(i));
+			}
+			catch(IndexOutOfBoundsException e){
 				
 			}
-			else{
-				
-			}
-				
 		}
 		
 		//maxANDindex array is to store the max value and the index of the max value. The Max value is store in 0 index. Index of max stored in 1 index.
@@ -61,23 +81,16 @@
 		System.out.println(indexoflastremoved + " indexoflast removed");
 		if(array.size()==0)
 	        return sum;
-	        
-		for(Integer p: values)
-			System.out.println(p + " values ");
 	    
 		if(indexoflastremoved==-1)
 	    
 			calculatesums(array);
 	        
-	        else{
-	        	System.out.println("hit recl");
+	        else
 	        	REcalculatesums(array,indexoflastremoved);
-	        }
-	        int[] maxANDindex;
-	
-	
 	        
-	       
+	        int[] maxANDindex;
+
 	        maxANDindex=maxValueandIndex();
 	        sum+=maxANDindex[0];
 	        
@@ -104,16 +117,14 @@
 	        
 	     public static void main(String []args){
 	        ArrayList<Integer> A = new ArrayList<Integer>();
-	       
-	        A.add(2);
-	        A.add(3);
+	      
+	          
+	         	        A.add(2);
+	         	        A.add(3);
+	             
 	        
 	        for (Integer p : A)
 	            System.out.print(p+" ");
-	     
-	     
-		
-	     
 	        
 	        System.out.println("maxsum " +pickBoxes(A,0,-1));
 	     }   
