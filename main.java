@@ -8,19 +8,36 @@
 			
 			for(int i=0;i<array.size();i++){
 				if(i==0){
-					values.add(i,array.get(0)*array.get(i+1));
+					values.add(array.get(0)*array.get(i+1));
 				}
 	            else if( i==array.size()-1)
-	                values.add(i,array.get(i)*array.get(i-1));
+	                values.add(array.get(i)*array.get(i-1));
 	            else{
-	            values.add(i,array.get(i-1)*array.get(i)*array.get(i+1));
+	            values.add(array.get(i-1)*array.get(i)*array.get(i+1));
 
 	            }
 			
 			}
 			
 		}
-	
+		//recalculate sums after element is removed
+		private static void REcalculatesums(ArrayList <Integer>array, int indexoflastremoved){
+			for(Integer p: values)
+				System.out.println(p + " ");
+			System.out.println(values.get(0));
+			System.out.println(array.get(0));
+			values.remove(indexoflastremoved);
+			
+			if(indexoflastremoved==0 || indexoflastremoved == 1 && array.size()==1){
+				values.set(0, array.get(0));
+				
+			}
+			else{
+				
+			}
+				
+		}
+		
 		//maxANDindex array is to store the max value and the index of the max value. The Max value is store in 0 index. Index of max stored in 1 index.
 		
 		public static int[] maxValueandIndex(){
@@ -41,14 +58,21 @@
 	 
 	}
 	public static int pickBoxes(ArrayList<Integer> array,int sum,int indexoflastremoved){
-	        if(array.size()==0){
+		System.out.println(indexoflastremoved + " indexoflast removed");
+		if(array.size()==0)
 	        return sum;
+	        
+		for(Integer p: values)
+			System.out.println(p + " values ");
+	    
+		if(indexoflastremoved==-1)
+	    
+			calculatesums(array);
+	        
+	        else{
+	        	System.out.println("hit recl");
+	        	REcalculatesums(array,indexoflastremoved);
 	        }
-	        
-	        if(indexoflastremoved==-1)
-	        	calculatesums(array);
-	        
-	        
 	        int[] maxANDindex;
 	
 	
@@ -56,18 +80,21 @@
 	       
 	        maxANDindex=maxValueandIndex();
 	        sum+=maxANDindex[0];
+	        
 	        //when there are only two elements left. Choose to remove the smaller one. The products of i*i+1 and i+1*i will be the same. 
 	        if(array.size()==2){
-	        if(array.get(0)>array.get(1))
-	        array.remove(1);
-	        else
-	        array.remove(0);
-	        }
+	        	
+	        	if(array.get(0)>array.get(1))
+	        		array.remove(1);
+	        	else
+	        		array.remove(0);
+	        		
+	        }        	
 	        else{
-	        System.out.println("removed "+ array.get(maxANDindex[1]));
-	        array.remove(maxANDindex[1]);
+	        	System.out.println("removed "+ array.get(maxANDindex[1]));
+	        	array.remove(maxANDindex[1]);
 	        }
-	return sum=pickBoxes(array,sum,indexoflastremoved);
+	        return sum=pickBoxes(array,sum,maxANDindex[1]);
 	    }
 	        
 	        
@@ -77,17 +104,18 @@
 	        
 	     public static void main(String []args){
 	        ArrayList<Integer> A = new ArrayList<Integer>();
-	        A.add(8);
+	       
 	        A.add(2);
 	        A.add(3);
-	        A.add(6);
-	        A.add(7);
-	        A.add(9);
-	        A.add(4);
 	        
-	        System.out.println("maxsum " +pickBoxes(A,0,-1));
 	        for (Integer p : A)
 	            System.out.print(p+" ");
-	     }
+	     
+	     
+		
+	     
+	        
+	        System.out.println("maxsum " +pickBoxes(A,0,-1));
+	     }   
 	}
 
